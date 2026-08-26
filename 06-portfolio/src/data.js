@@ -156,6 +156,17 @@ export const projects = [
     code: `${REPO}/tree/main/05-invoice-generator`,
   },
   {
+    title: "TasteNest Restaurant",
+    category: "Web Design",
+    featured: true,
+    description:
+      "A restaurant landing page: hero carousel, menu and booking sections, a reservation form with date and time pickers, and a dish slider. Laid out on Bootstrap and rebuilt to hold together from 320px up.",
+    tags: ["Bootstrap 5", "Responsive", "Flatpickr"],
+    gradient: "linear-gradient(135deg, #ff5cad, #35e8c3)",
+    demo: "",
+    code: "https://github.com/hassanmurtaza-dev/foodshop_webpage",
+  },
+  {
     title: "Weather App",
     category: "API",
     featured: false,
