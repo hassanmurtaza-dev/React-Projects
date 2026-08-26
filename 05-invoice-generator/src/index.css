@@ -1,0 +1,425 @@
+:root {
+  --page: #eceae4;
+  --chrome: #ffffff;
+  --chrome-border: #d9d6cf;
+  --chrome-ink: #33322e;
+  --paper: #ffffff;
+  --ink: #16150f;
+  --ink-2: #56544c;
+  --muted: #8b887e;
+  --rule: #e2dfd7;
+  --accent: #1f5fbf;
+
+  color-scheme: light;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--page);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #1a1a18;
+    --chrome: #242320;
+    --chrome-border: #35342f;
+    --chrome-ink: #e7e5dd;
+
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page);
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.toolbar {
+  position: sticky;
+  top: 1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100%, 52rem);
+  padding: 0.6rem 0.75rem;
+  color: var(--chrome-ink);
+  background: var(--chrome);
+  border: 1px solid var(--chrome-border);
+  border-radius: 0.7rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toolbar button,
+.toolbar select {
+  padding: 0.45rem 0.8rem;
+  background: transparent;
+  border: 1px solid var(--chrome-border);
+  border-radius: 0.5rem;
+}
+
+.toolbar button:hover {
+  border-color: var(--accent);
+}
+
+.toolbar .primary {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.sheet {
+  width: min(100%, 52rem);
+  padding: 3rem;
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 0.4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.sheet input,
+.sheet textarea {
+  width: 100%;
+  padding: 0.15rem 0;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  resize: none;
+}
+
+.sheet input:hover,
+.sheet textarea:hover {
+  border-bottom-color: var(--rule);
+}
+
+.sheet input:focus,
+.sheet textarea:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+.sheet input::placeholder,
+.sheet textarea::placeholder {
+  color: var(--muted);
+}
+
+.sheet h2 {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sheet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.sheet-head h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.number {
+  max-width: 10rem;
+  color: var(--ink-2) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.dates {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  text-align: right;
+}
+
+.dates dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dates dd {
+  margin: 0.15rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.dates input {
+  text-align: right;
+}
+
+.printed {
+  display: none;
+}
+
+.parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  padding: 1.75rem 0;
+}
+
+.party-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.party textarea,
+.party input {
+  color: var(--ink-2);
+}
+
+.party .party-name {
+  color: var(--ink);
+}
+
+.items {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.items th {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--muted);
+  border-bottom: 1px solid var(--ink);
+}
+
+.items td {
+  padding: 0.35rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+
+.items th:first-child,
+.items td:first-child {
+  padding-left: 0;
+}
+
+.items .num {
+  text-align: right;
+}
+
+.items .num input {
+  text-align: right;
+}
+
+.items .qty {
+  width: 5rem;
+}
+
+.items .rate {
+  width: 7rem;
+}
+
+.items .amount {
+  width: 8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.items .strip {
+  width: 2rem;
+  padding-right: 0;
+}
+
+.remove {
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-radius: 0.35rem;
+}
+
+.remove:hover:not(:disabled) {
+  color: #b3261e;
+  background: #fbeae8;
+}
+
+.remove:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.add {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.875rem;
+  color: var(--accent);
+  background: none;
+  border: 1px dashed var(--rule);
+  border-radius: 0.45rem;
+}
+
+.add:hover {
+  border-color: var(--accent);
+}
+
+.totals {
+  width: min(100%, 20rem);
+  margin: 2rem 0 0 auto;
+}
+
+.totals .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  font-size: 0.925rem;
+  color: var(--ink-2);
+}
+
+.totals label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.rate-input {
+  width: 3.25rem !important;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.totals .value {
+  font-variant-numeric: tabular-nums;
+}
+
+.totals .grand {
+  margin-top: 0.4rem;
+  padding-top: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 2px solid var(--ink);
+}
+
+.notes {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.notes textarea {
+  color: var(--ink-2);
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+@media (max-width: 40rem) {
+  .sheet {
+    padding: 1.5rem;
+  }
+
+  .sheet-head,
+  .parties {
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .dates {
+    text-align: left;
+  }
+
+  .dates input {
+    text-align: left;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .toolbar,
+  .hint,
+  .add,
+  .strip {
+    display: none !important;
+  }
+
+  .page {
+    padding: 0;
+    display: block;
+  }
+
+  .sheet {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .sheet input,
+  .sheet textarea {
+    border-bottom-color: transparent !important;
+  }
+
+  .dates input {
+    display: none;
+  }
+
+  .printed {
+    display: inline;
+  }
+}
