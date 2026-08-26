@@ -10,6 +10,7 @@ standalone Vite + React app.
 | 01 | [Todo App](./01-todo-app) | `useState`, `useEffect`, lists & keys, forms, localStorage |
 | 02 | [Weather App](./02-weather-app) | `useEffect`, `fetch`, async/await, loading & error states, working with a REST API |
 | 03 | [Calculator](./03-calculator) | State machines, keyboard events, cleanup in `useEffect`, keeping logic out of the component |
+| 04 | [Admin Dashboard](./04-admin-dashboard) | React Router, Context, `useMemo`, hand-drawn SVG charts, sortable and paginated tables |
 
 ## Running any project
 
