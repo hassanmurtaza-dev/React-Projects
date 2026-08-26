@@ -3,17 +3,17 @@ import './App.css'
 
 const STORAGE_KEY = 'todos'
 
-// Load saved todos on first render so the list survives a page refresh.
-function loadTodos() {
+function getSavedTodos() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? []
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return saved ? JSON.parse(saved) : []
   } catch {
     return []
   }
 }
 
-function App() {
-  const [todos, setTodos] = useState(loadTodos)
+export default function App() {
+  const [todos, setTodos] = useState(getSavedTodos)
   const [text, setText] = useState('')
   const [filter, setFilter] = useState('all')
 
@@ -21,7 +21,7 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
   }, [todos])
 
-  function addTodo(e) {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const title = text.trim()
     if (!title) return
@@ -30,31 +30,31 @@ function App() {
     setText('')
   }
 
-  function toggleTodo(id) {
+  const toggle = (id) => {
     setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
   }
 
-  function deleteTodo(id) {
+  const remove = (id) => {
     setTodos(todos.filter((t) => t.id !== id))
   }
 
-  function clearCompleted() {
+  const clearCompleted = () => {
     setTodos(todos.filter((t) => !t.done))
   }
 
-  const visible = todos.filter((t) => {
+  const shown = todos.filter((t) => {
     if (filter === 'active') return !t.done
     if (filter === 'completed') return t.done
     return true
   })
 
-  const remaining = todos.filter((t) => !t.done).length
+  const left = todos.filter((t) => !t.done).length
 
   return (
     <main className="app">
       <h1>My Todos</h1>
 
-      <form className="add-form" onSubmit={addTodo}>
+      <form className="add-form" onSubmit={handleSubmit}>
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -76,23 +76,23 @@ function App() {
         ))}
       </div>
 
-      {visible.length === 0 ? (
+      {shown.length === 0 ? (
         <p className="empty">Nothing here yet.</p>
       ) : (
         <ul className="todo-list">
-          {visible.map((todo) => (
+          {shown.map((todo) => (
             <li key={todo.id} className={todo.done ? 'done' : ''}>
               <label>
                 <input
                   type="checkbox"
                   checked={todo.done}
-                  onChange={() => toggleTodo(todo.id)}
+                  onChange={() => toggle(todo.id)}
                 />
                 <span>{todo.title}</span>
               </label>
               <button
                 className="delete"
-                onClick={() => deleteTodo(todo.id)}
+                onClick={() => remove(todo.id)}
                 aria-label={`Delete ${todo.title}`}
               >
                 ×
@@ -103,13 +103,11 @@ function App() {
       )}
 
       <footer className="summary">
-        <span>{remaining} left</span>
-        {todos.length > remaining && (
+        <span>{left} left</span>
+        {todos.length > left && (
           <button onClick={clearCompleted}>Clear completed</button>
         )}
       </footer>
     </main>
   )
 }
-
-export default App
