@@ -8,6 +8,7 @@ standalone Vite + React app.
 | # | Project | What it covers |
 |---|---------|----------------|
 | 01 | [Todo App](./01-todo-app) | `useState`, `useEffect`, lists & keys, forms, localStorage |
+| 02 | [Weather App](./02-weather-app) | `useEffect`, `fetch`, async/await, loading & error states, working with a REST API |
 
 ## Running any project
 
