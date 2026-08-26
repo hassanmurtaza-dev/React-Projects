@@ -12,6 +12,7 @@ standalone Vite + React app.
 | 03 | [Calculator](./03-calculator) | State machines, keyboard events, cleanup in `useEffect`, keeping logic out of the component |
 | 04 | [Admin Dashboard](./04-admin-dashboard) | React Router, Context, `useMemo`, hand-drawn SVG charts, sortable and paginated tables |
 | 05 | [Invoice Generator](./05-invoice-generator) | Nested state updates, derived totals, `Intl.NumberFormat`, a real print stylesheet |
+| 06 | [Portfolio](./06-portfolio) | Scroll animations, theme switching, and a contact form that sends over SMTP from a serverless function |
 
 ## Running any project
 
