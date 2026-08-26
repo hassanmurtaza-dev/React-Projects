@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { findCity, getWeather } from './api'
 import { describe } from './weatherCodes'
+import { themeFor } from './theme'
 import './App.css'
 
 const START_CITY = {
@@ -62,77 +63,80 @@ export default function App() {
   const current = weather?.current
   const daily = weather?.daily
   const now = current ? describe(current.weather_code) : null
+  const theme = current ? themeFor(current.weather_code, current.is_day) : 'cloud'
 
   const place = [city.name, city.admin !== city.name && city.admin, city.country]
     .filter(Boolean)
     .join(', ')
 
   return (
-    <main className="app">
-      <h1>Weather</h1>
+    <div className={`page ${theme}`}>
+      <main className="app">
+        <h1>Weather</h1>
 
-      <form className="search" onSubmit={handleSubmit}>
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search a city"
-          aria-label="City name"
-        />
-        <button type="submit" disabled={loading}>
-          Search
-        </button>
-      </form>
+        <form className="search" onSubmit={handleSubmit}>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search a city"
+            aria-label="City name"
+          />
+          <button type="submit" disabled={loading}>
+            Search
+          </button>
+        </form>
 
-      {error && <p className="error">{error}</p>}
-      {loading && !weather && <p className="hint">Loading…</p>}
+        {error && <p className="error">{error}</p>}
+        {loading && !weather && <p className="hint">Loading…</p>}
 
-      {current && (
-        <section className={loading ? 'current dim' : 'current'}>
-          <p className="place">{place}</p>
+        {current && (
+          <section className={loading ? 'current dim' : 'current'}>
+            <p className="place">{place}</p>
 
-          <div className="now">
-            <span className="icon">{now.icon}</span>
-            <span className="temp">{Math.round(current.temperature_2m)}°</span>
-          </div>
-
-          <p className="label">{now.label}</p>
-
-          <dl className="details">
-            <div>
-              <dt>Feels like</dt>
-              <dd>{Math.round(current.apparent_temperature)}°</dd>
+            <div className="now">
+              <span className="icon">{now.icon}</span>
+              <span className="temp">{Math.round(current.temperature_2m)}°</span>
             </div>
-            <div>
-              <dt>Humidity</dt>
-              <dd>{current.relative_humidity_2m}%</dd>
-            </div>
-            <div>
-              <dt>Wind</dt>
-              <dd>{Math.round(current.wind_speed_10m)} km/h</dd>
-            </div>
-          </dl>
-        </section>
-      )}
 
-      {daily && (
-        <section className="forecast">
-          {daily.time.slice(1).map((date, i) => {
-            const day = describe(daily.weather_code[i + 1])
-            return (
-              <article key={date}>
-                <span className="day">{dayName(date)}</span>
-                <span className="icon">{day.icon}</span>
-                <span className="range">
-                  {Math.round(daily.temperature_2m_max[i + 1])}°
-                  <span className="min">
-                    {Math.round(daily.temperature_2m_min[i + 1])}°
+            <p className="label">{now.label}</p>
+
+            <dl className="details">
+              <div>
+                <dt>Feels like</dt>
+                <dd>{Math.round(current.apparent_temperature)}°</dd>
+              </div>
+              <div>
+                <dt>Humidity</dt>
+                <dd>{current.relative_humidity_2m}%</dd>
+              </div>
+              <div>
+                <dt>Wind</dt>
+                <dd>{Math.round(current.wind_speed_10m)} km/h</dd>
+              </div>
+            </dl>
+          </section>
+        )}
+
+        {daily && (
+          <section className="forecast">
+            {daily.time.slice(1).map((date, i) => {
+              const day = describe(daily.weather_code[i + 1])
+              return (
+                <article key={date}>
+                  <span className="day">{dayName(date)}</span>
+                  <span className="icon">{day.icon}</span>
+                  <span className="range">
+                    {Math.round(daily.temperature_2m_max[i + 1])}°
+                    <span className="min">
+                      {Math.round(daily.temperature_2m_min[i + 1])}°
+                    </span>
                   </span>
-                </span>
-              </article>
-            )
-          })}
-        </section>
-      )}
-    </main>
+                </article>
+              )
+            })}
+          </section>
+        )}
+      </main>
+    </div>
   )
 }
